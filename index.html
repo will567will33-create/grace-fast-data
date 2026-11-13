@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRACE FAST UNLIMITED DATA BUNDLES</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fffbea;color:#222}
+header{background:#ffd500;text-align:center;padding:25px 15px}
+header h1{font-size:25px;margin:0 0 8px}
+header p{margin:0}
+main{max-width:600px;margin:auto;padding:18px}
+.card{background:white;padding:20px;margin:15px 0;border-radius:14px;box-shadow:0 2px 10px #0001}
+h2{color:#222;font-size:20px}
+button,select,input{width:100%;padding:14px;margin:8px 0;border-radius:8px;font-size:16px}
+button{background:#ffd500;border:0;font-weight:bold;cursor:pointer}
+input,select{border:1px solid #ccc;background:white}
+label{font-weight:bold;display:block;margin-top:12px}
+.hidden{display:none}
+.price{font-size:18px;font-weight:bold;color:#16833c}
+.notice{background:#fff4c2;padding:14px;border-radius:8px;line-height:1.6}
+footer{text-align:center;padding:20px;background:#222;color:white}
+footer a{color:#ffd500}
+</style>
+</head>
+<body>
+
+<header>
+<h1>GRACE FAST</h1>
+<p>UNLIMITED DATA BUNDLES</p>
+<p>Fast Delivery • Safe & Reliable • Available 24/7</p>
+</header>
+
+<main>
+<div class="card">
+<h2>Welcome!</h2>
+<p>Buy affordable data bundles for your favourite network.</p>
+<button onclick="showSection('buy')">BUY DATA</button>
+<button onclick="showSection('vendor')">VENDOR SUBSCRIPTION</button>
+</div>
+
+<section id="buy" class="card hidden">
+<h2>Buy Data Bundle</h2>
+
+<label>Select Network</label>
+<select id="network" onchange="loadBundles()">
+<option value="">Choose network</option>
+<option value="MTN">MTN</option>
+<option value="Telecel">Telecel</option>
+<option value="AirtelTigo">AirtelTigo</option>
+</select>
+
+<label>Select Data Bundle</label>
+<select id="bundle" onchange="showPrice()">
+<option value="">Choose bundle</option>
+</select>
+<p class="price" id="price"></p>
+
+<label>Recipient Phone Number</label>
+<input id="phone" type="tel" placeholder="Enter phone number">
+
+<div class="notice">
+<strong>Payment Instructions</strong><br>
+Send the exact amount to:<br>
+<strong>Telecel MoMo: 0505825576</strong><br>
+Account Name: <strong>ESHUN OLIVIA ODURO</strong><br><br>
+This is a Telecel MoMo number. If sending from MTN MoMo, select Other Networks, then choose Telecel. Confirm the recipient name before paying.
+</div>
+
+<label>MoMo Transaction Code (to confirm order)</label>
+<input id="transaction" type="text" placeholder="Enter transaction code">
+
+<p class="notice">Never enter your MoMo PIN or OTP here. Orders are subject to manual payment verification.</p>
+
+<button onclick="submitOrder()">SUBMIT ORDER</button>
+<p id="message"></p>
+</section>
+
+<section id="vendor" class="card hidden">
+<h2>Vendor Subscription</h2>
+<p>Vendor subscription information will be available soon.</p>
+</section>
+
+<section id="success" class="card hidden">
+<h2>Order Submitted!</h2>
+<p>Your order has been received for manual payment verification. Please keep your transaction code safe.</p>
+</section>
+</main>
+
+<footer>
+<p>Need help? Contact us</p>
+<p><a href="https://wa.me/233261153503">WhatsApp: +233 26 115 3503</a></p>
+<p>© GRACE FAST UNLIMITED DATA BUNDLES</p>
+</footer>
+
+<script>
+const prices={
+MTN:{
+"10GB":30,"20GB":40,"30GB":50,"37GB":60,
+"40GB":70,"47GB":80,"50GB":90,"57GB":100,
+"60GB":120,"1TB":300,"2TB":547,"3TB":745
+},
+Telecel:{
+"10GB":28,"20GB":38,"30GB":48,"40GB":65,
+"50GB":85,"57GB":95,"60GB":115,"72GB":130,"299GB":280
+},
+AirtelTigo:{
+"10GB":25,"20GB":35,"30GB":45,"40GB":60,
+"50GB":80,"57GB":90,"60GB":110,"72GB":125,"299GB":270
+}
+};
+
+function showSection(id){
+["buy","vendor","success"].forEach(x=>
+document.getElementById(x).classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+}
+
+function loadBundles(){
+const network=document.getElementById("network").value;
+const bundle=document.getElementById("bundle");
+bundle.innerHTML='<option value="">Choose bundle</option>';
+document.getElementById("price").textContent="";
+if(!network)return;
+Object.keys(prices[network]).forEach(size=>{
+let option=document.createElement("option");
+option.value=size;
+option.textContent=size+" - GH₵"+prices[network][size];
+bundle.appendChild(option);
+});
+}
+
+function showPrice(){
+const n=document.getElementById("network").value;
+const b=document.getElementById("bundle").value;
+document.getElementById("price").textContent=
+n&&b?"Price: GH₵"+prices[n][b]:"";
+}
+
+async function submitOrder(){
+const network=document.getElementById("network").value;
+const bundle=document.getElementById("bundle").value;
+const phone=document.getElementById("phone").value.trim();
+const transaction=document.getElementById("transaction").value.trim();
+const message=document.getElementById("message");
+
+if(!network||!bundle||!phone||!transaction){
+message.textContent="Please complete all fields.";
+return;
+}
+if(!/^[0-9+\s-]{9,15}$/.test(phone)){
+message.textContent="Please enter a valid phone number.";
+return;
+}
+message.textContent="Submitting your order...";
+try{
+const response=await fetch("/.netlify/functions/submit-order",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+network,bundle,phone,transaction,
+price:prices[network][bundle]
+})
+});
+if(!response.ok)throw new Error("Submission failed");
+showSection("success");
+}catch(error){
+message.textContent="Order could not be submitted. Please try again later.";
+}
+}
+</script>
+</body>
+</html>
