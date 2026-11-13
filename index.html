@@ -4,172 +4,468 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GRACE FAST UNLIMITED DATA BUNDLES</title>
+<title>GRACE UNLIMITED DATA BUNDLES</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#fffbea;color:#222}
-header{background:#ffd500;text-align:center;padding:25px 15px}
-header h1{font-size:25px;margin:0 0 8px}
-header p{margin:0}
-main{max-width:600px;margin:auto;padding:18px}
-.card{background:white;padding:20px;margin:15px 0;border-radius:14px;box-shadow:0 2px 10px #0001}
-h2{color:#222;font-size:20px}
-button,select,input{width:100%;padding:14px;margin:8px 0;border-radius:8px;font-size:16px}
-button{background:#ffd500;border:0;font-weight:bold;cursor:pointer}
-input,select{border:1px solid #ccc;background:white}
-label{font-weight:bold;display:block;margin-top:12px}
-.hidden{display:none}
-.price{font-size:18px;font-weight:bold;color:#16833c}
-.notice{background:#fff4c2;padding:14px;border-radius:8px;line-height:1.6}
-footer{text-align:center;padding:20px;background:#222;color:white}
-footer a{color:#ffd500}
+:root {
+  --navy:#17152f;
+  --purple:#7048d8;
+  --gold:#f5bd45;
+  --lavender:#f3efff;
+  --white:#fff;
+  --muted:#6d6880;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--lavender);
+  color:var(--navy);
+}
+header {
+  background:linear-gradient(135deg,#17152f,#49318e,#7048d8);
+  color:white;
+  text-align:center;
+  padding:30px 16px 25px;
+}
+.brand {
+  font-size:clamp(25px,6vw,38px);
+  font-weight:900;
+  line-height:1.15;
+  letter-spacing:1px;
+  animation:glow 2.5s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow:0 0 5px #fff; }
+  to { text-shadow:0 0 18px #f5bd45,0 0 30px #7048d8; }
+}
+.tagline { color:#f8e8b8; margin-top:10px; }
+.ticker {
+  overflow:hidden;
+  white-space:nowrap;
+  background:var(--gold);
+  color:var(--navy);
+  padding:12px 0;
+  font-weight:bold;
+}
+.ticker span {
+  display:inline-block;
+  padding-left:100%;
+  animation:scroll 24s linear infinite;
+}
+@keyframes scroll {
+  from { transform:translateX(0); }
+  to { transform:translateX(-100%); }
+}
+.welcome {
+  text-align:center;
+  padding:28px 16px 10px;
+}
+.welcome h1 { font-size:25px; margin-bottom:10px; }
+.rotating {
+  max-width:720px;
+  min-height:65px;
+  margin:12px auto;
+  color:#51447b;
+  line-height:1.6;
+  animation:fade 5s ease-in-out infinite;
+}
+@keyframes fade {
+  0%,100% { opacity:.35; transform:translateY(7px); }
+  15%,80% { opacity:1; transform:translateY(0); }
+}
+.container {
+  width:min(920px,92%);
+  margin:18px auto 40px;
+}
+.card {
+  background:white;
+  border-radius:20px;
+  padding:22px;
+  margin:18px 0;
+  box-shadow:0 8px 28px rgba(35,20,80,.09);
+}
+h2 { color:var(--purple); margin-top:0; }
+h3 { margin-bottom:8px; }
+p { line-height:1.6; }
+.buttons {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
+button,.main-button {
+  border:0;
+  border-radius:12px;
+  padding:14px 20px;
+  background:linear-gradient(135deg,var(--purple),#49318e);
+  color:white;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+}
+button:hover,.main-button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 7px 18px #7048d855;
+}
+.gold { background:var(--gold); color:var(--navy); }
+input,select {
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd6f1;
+  border-radius:10px;
+  margin:7px 0 15px;
+  font-size:16px;
+  background:#fff;
+}
+label { font-weight:bold; display:block; margin-top:8px; }
+.payment {
+  background:#fff8e7;
+  border:1px solid #f5bd45;
+  border-radius:14px;
+  padding:16px;
+  line-height:1.8;
+}
+.price-list {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;
+  margin:12px 0;
+}
+.price-item {
+  background:#f5f1ff;
+  border-radius:10px;
+  padding:12px;
+  text-align:center;
+  font-weight:bold;
+}
+.price-item small {
+  display:block;
+  color:var(--purple);
+  margin-top:5px;
+}
+.benefits {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:12px;
+}
+.benefit {
+  background:#f5f1ff;
+  border-radius:12px;
+  padding:15px;
+  line-height:1.5;
+}
+.hidden { display:none; }
+.note { color:var(--muted); font-size:13px; }
+.success {
+  background:#effaf1;
+  border:1px solid #b6e2bd;
+  padding:18px;
+  border-radius:12px;
+  margin-top:15px;
+  line-height:1.7;
+}
+footer {
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  line-height:1.8;
+}
+footer a { color:var(--gold); }
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>GRACE FAST</h1>
-<p>UNLIMITED DATA BUNDLES</p>
-<p>Fast Delivery • Safe & Reliable • Available 24/7</p>
+  <div class="brand">GRACE UNLIMITED<br>DATA BUNDLES</div>
+  <div class="tagline">Affordable Data • Reliable Service • Customer Satisfaction</div>
 </header>
 
-<main>
-<div class="card">
-<h2>Welcome!</h2>
-<p>Buy affordable data bundles for your favourite network.</p>
-<button onclick="showSection('buy')">BUY DATA</button>
-<button onclick="showSection('vendor')">VENDOR SUBSCRIPTION</button>
+<div class="ticker">
+  <span>WELCOME TO GRACE UNLIMITED DATA BUNDLES ✦ AFFORDABLE DATA PACKAGES ✦ MTN • TELECEL • AIRTELTIGO ✦ THANK YOU FOR CHOOSING US ✦</span>
 </div>
 
-<section id="buy" class="card hidden">
-<h2>Buy Data Bundle</h2>
+<section class="welcome">
+  <h1>WELCOME TO GRACE UNLIMITED DATA BUNDLES!</h1>
+  <p class="rotating" id="rotatingMessage">
+    Affordable data. Reliable service. Exceptional customer care.
+  </p>
+  <p>Your trusted destination for convenient and affordable internet bundles in Ghana.</p>
+</section>
 
-<label>Select Network</label>
-<select id="network" onchange="loadBundles()">
-<option value="">Choose network</option>
-<option value="MTN">MTN</option>
-<option value="Telecel">Telecel</option>
-<option value="AirtelTigo">AirtelTigo</option>
-</select>
+<div class="container">
+  <div class="buttons">
+    <button onclick="showSection('buy')">BUY DATA</button>
+    <button class="gold" onclick="showSection('vendor')">VENDOR SUBSCRIPTION</button>
+  </div>
 
-<label>Select Data Bundle</label>
-<select id="bundle" onchange="showPrice()">
-<option value="">Choose bundle</option>
-</select>
-<p class="price" id="price"></p>
+  <section id="home" class="card">
+    <h2>Stay Connected With Grace</h2>
+    <p>Enjoy convenient access to MTN, Telecel and AirtelTigo data bundles at competitive prices. We are committed to giving you a smooth ordering experience and dependable customer support.</p>
+    <div class="benefits">
+      <div class="benefit"><h3>⚡ Fast Service</h3>Our team will assist with your order and activation.</div>
+      <div class="benefit"><h3>🤝 Reliable Support</h3>We are available to help with your enquiries.</div>
+      <div class="benefit"><h3>📶 Multiple Networks</h3>Choose from MTN, Telecel and AirtelTigo.</div>
+    </div>
+  </section>
 
-<label>Recipient Phone Number</label>
-<input id="phone" type="tel" placeholder="Enter phone number">
+  <section id="buy" class="card hidden">
+    <h2>BUY YOUR DATA BUNDLE</h2>
+    <p>Select your network and preferred data package below.</p>
 
-<div class="notice">
-<strong>Payment Instructions</strong><br>
-Send the exact amount to:<br>
-<strong>Telecel MoMo: 0505825576</strong><br>
-Account Name: <strong>ESHUN OLIVIA ODURO</strong><br><br>
-This is a Telecel MoMo number. If sending from MTN MoMo, select Other Networks, then choose Telecel. Confirm the recipient name before paying.
+    <form id="orderForm">
+      <label for="network">Select Network</label>
+      <select id="network" required>
+        <option value="">Choose your network</option>
+        <option value="MTN">MTN</option>
+        <option value="Telecel">Telecel</option>
+        <option value="AirtelTigo">AirtelTigo</option>
+      </select>
+
+      <div id="bundlePrices" class="price-list"></div>
+
+      <label for="bundle">Select Data Bundle</label>
+      <select id="bundle" required>
+        <option value="">Choose a network first</option>
+      </select>
+
+      <label for="phone">Recipient Phone Number</label>
+      <input id="phone" type="tel" placeholder="Enter the number receiving the data" required>
+
+      <div class="payment">
+        <h3>PAYMENT DETAILS</h3>
+        <strong>Telecel MoMo Number: 0505825576</strong><br>
+        Account Name: <strong>ESHUN OLIVIA ODURO</strong><br>
+        This is a <strong>Telecel number</strong>. If sending from MTN MoMo, choose <strong>Other Networks → Telecel</strong>.<br>
+        Please confirm the account name before making payment.
+      </div>
+
+      <label for="transaction">MoMo Transaction Code (to confirm order)</label>
+      <input id="transaction" type="text" placeholder="Enter your MoMo transaction code" required>
+
+      <button type="submit" class="main-button" style="width:100%">SUBMIT DATA ORDER</button>
+    </form>
+
+    <div id="orderSuccess" class="success hidden">
+      <h3>THANK YOU FOR CHOOSING GRACE UNLIMITED DATA BUNDLES!</h3>
+      Your order has been successfully submitted. One of our available agents will contact you shortly to assist with your data activation.<br>
+      Please keep your phone available so our agent can reach you.<br><br>
+      <strong>GRACE UNLIMITED DATA BUNDLES</strong><br>
+      Thank you for trusting us!
+    </div>
+    <p id="orderError" class="note"></p>
+  </section>
+
+  <section id="vendor" class="card hidden">
+    <h2>VENDOR SUBSCRIPTION</h2>
+    <p>Become a Grace Unlimited Data Bundles vendor and grow your own resale business.</p>
+
+    <div class="benefits">
+      <div class="benefit"><h3>💰 Daily Profit Opportunities</h3>Earn margin on every resale, every day.</div>
+      <div class="benefit"><h3>📦 Discounted Bulk Packages</h3>Access packages of up to 5000GB at vendor-only pricing.</div>
+      <div class="benefit"><h3>📱 Airtime Reseller Access</h3>Buy airtime at discounted prices.</div>
+      <div class="benefit"><h3>📊 Vendor Dashboard Access</h3>Track your orders and profits.</div>
+      <div class="benefit"><h3>⚡ Fast Activation</h3>Approved vendors can be activated after payment confirmation.</div>
+      <div class="benefit"><h3>☎️ Reliable Support</h3>WhatsApp and call support.</div>
+    </div>
+
+    <h3>VENDOR REGISTRATION FORM</h3>
+    <form id="vendorForm">
+      <label>Full Name</label>
+      <input name="fullName" placeholder="Enter your full name" required>
+
+      <label>Telephone Number</label>
+      <input name="telephone" type="tel" placeholder="Enter your telephone number" required>
+
+      <label>Email Address</label>
+      <input name="email" type="email" placeholder="Enter your email address" required>
+
+      <label>Ghana Card ID Number</label>
+      <input name="ghanaCard" placeholder="Enter your Ghana Card ID" required>
+
+      <label>Region</label>
+      <select name="region" required>
+        <option value="">Select your region</option>
+        <option>Greater Accra</option><option>Ashanti</option>
+        <option>Central</option><option>Eastern</option>
+        <option>Western</option><option>Western North</option>
+        <option>Volta</option><option>Oti</option>
+        <option>Northern</option><option>Savannah</option>
+        <option>North East</option><option>Upper East</option>
+        <option>Upper West</option><option>Bono</option>
+        <option>Bono East</option><option>Ahafo</option>
+      </select>
+
+      <label>Subtown</label>
+      <input name="subtown" placeholder="Enter your subtown" required>
+
+      <label>House Number / Digital Address</label>
+      <input name="address" placeholder="Enter your house number or digital address" required>
+
+      <label>Profession</label>
+      <input name="profession" placeholder="Enter your profession" required>
+
+      <label>Next of Kin Name</label>
+      <input name="nextOfKin" placeholder="Enter next of kin's name" required>
+
+      <label>Next of Kin Number</label>
+      <input name="nextOfKinNumber" type="tel" placeholder="Enter next of kin's number" required>
+
+      <label>Mobile Money Number</label>
+      <input name="momoNumber" type="tel" placeholder="Enter your MoMo number" required>
+
+      <label>Enter 4-Digit Confirmation Code</label>
+      <input name="confirmationCode" type="password" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="Enter 4-digit code" required>
+
+      <button type="submit" style="width:100%">SUBMIT APPLICATION</button>
+    </form>
+    <p class="note">The vendor application Telegram connection still needs to be configured before this form can accept applications. We will complete that setup next.</p>
+    <div id="vendorSuccess" class="success hidden">
+      <h3>THANK YOU FOR APPLYING!</h3>
+      Your vendor application has been received. One of our available agents will contact you shortly to guide you through the next steps of your activation.<br>
+      Please keep your phone available.<br><br>
+      <strong>GRACE UNLIMITED DATA BUNDLES</strong><br>
+      Thank you for your interest in becoming our vendor!
+    </div>
+  </section>
 </div>
-
-<label>MoMo Transaction Code (to confirm order)</label>
-<input id="transaction" type="text" placeholder="Enter transaction code">
-
-<p class="notice">Never enter your MoMo PIN or OTP here. Orders are subject to manual payment verification.</p>
-
-<button onclick="submitOrder()">SUBMIT ORDER</button>
-<p id="message"></p>
-</section>
-
-<section id="vendor" class="card hidden">
-<h2>Vendor Subscription</h2>
-<p>Vendor subscription information will be available soon.</p>
-</section>
-
-<section id="success" class="card hidden">
-<h2>Order Submitted!</h2>
-<p>Your order has been received for manual payment verification. Please keep your transaction code safe.</p>
-</section>
-</main>
 
 <footer>
-<p>Need help? Contact us</p>
-<p><a href="https://wa.me/233261153503">WhatsApp: +233 26 115 3503</a></p>
-<p>© GRACE FAST UNLIMITED DATA BUNDLES</p>
+  <strong>GRACE UNLIMITED DATA BUNDLES</strong><br>
+  Need assistance? Contact our team.<br>
+  WhatsApp / Call: <a href="https://wa.me/233261153503">+233 26 115 3503</a><br>
+  © 2026 Grace Unlimited Data Bundles. All rights reserved.
 </footer>
 
 <script>
-const prices={
-MTN:{
-"10GB":30,"20GB":40,"30GB":50,"37GB":60,
-"40GB":70,"47GB":80,"50GB":90,"57GB":100,
-"60GB":120,"1TB":300,"2TB":547,"3TB":745
-},
-Telecel:{
-"10GB":28,"20GB":38,"30GB":48,"40GB":65,
-"50GB":85,"57GB":95,"60GB":115,"72GB":130,"299GB":280
-},
-AirtelTigo:{
-"10GB":25,"20GB":35,"30GB":45,"40GB":60,
-"50GB":80,"57GB":90,"60GB":110,"72GB":125,"299GB":270
+const messages = [
+  "Welcome to Grace Unlimited Data Bundles, your trusted destination for affordable and convenient internet packages.",
+  "We are committed to providing a smooth ordering experience, dependable customer support and competitive data bundle prices.",
+  "Your satisfaction is our priority. Our available agents are ready to assist you with your orders and data activation.",
+  "Choose from MTN, Telecel and AirtelTigo packages and select the bundle that best suits your needs.",
+  "Build your own reseller business with our vendor opportunities, discounted packages and dedicated support.",
+  "Thank you for choosing Grace Unlimited Data Bundles. We appreciate your trust and look forward to serving you."
+];
+
+let messageIndex = 0;
+setInterval(() => {
+  messageIndex = (messageIndex + 1) % messages.length;
+  const message = document.getElementById("rotatingMessage");
+  message.textContent = messages[messageIndex];
+}, 5000);
+
+function showSection(section) {
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("buy").classList.add("hidden");
+  document.getElementById("vendor").classList.add("hidden");
+  document.getElementById(section).classList.remove("hidden");
+  document.getElementById(section).scrollIntoView({behavior:"smooth"});
 }
+
+const bundles = {
+  MTN: [
+    ["10GB",30],["20GB",40],["30GB",50],["37GB",60],
+    ["40GB",70],["47GB",80],["50GB",90],["57GB",100],
+    ["60GB",120],["1TB",300],["2TB",547],["3TB",745]
+  ],
+  Telecel: [
+    ["10GB",28],["20GB",38],["30GB",48],["40GB",65],
+    ["50GB",85],["57GB",95],["60GB",115],["72GB",130],
+    ["299GB",280]
+  ],
+  AirtelTigo: [
+    ["10GB",25],["20GB",35],["30GB",45],["40GB",60],
+    ["50GB",80],["57GB",90],["60GB",110],["72GB",125],
+    ["299GB",270]
+  ]
 };
 
-function showSection(id){
-["buy","vendor","success"].forEach(x=>
-document.getElementById(x).classList.add("hidden"));
-document.getElementById(id).classList.remove("hidden");
-}
+const networkSelect = document.getElementById("network");
+const bundleSelect = document.getElementById("bundle");
+const priceDisplay = document.getElementById("bundlePrices");
 
-function loadBundles(){
-const network=document.getElementById("network").value;
-const bundle=document.getElementById("bundle");
-bundle.innerHTML='<option value="">Choose bundle</option>';
-document.getElementById("price").textContent="";
-if(!network)return;
-Object.keys(prices[network]).forEach(size=>{
-let option=document.createElement("option");
-option.value=size;
-option.textContent=size+" - GH₵"+prices[network][size];
-bundle.appendChild(option);
+networkSelect.addEventListener("change", () => {
+  const network = networkSelect.value;
+  bundleSelect.innerHTML = '<option value="">Choose your bundle</option>';
+  priceDisplay.innerHTML = "";
+
+  if (!network || !bundles[network]) return;
+
+  bundles[network].forEach(([size,price]) => {
+    const option = document.createElement("option");
+    option.value = size + "|" + price;
+    option.textContent = size + " — GH₵" + price;
+    bundleSelect.appendChild(option);
+
+    const item = document.createElement("div");
+    item.className = "price-item";
+    item.textContent = size;
+    const small = document.createElement("small");
+    small.textContent = "GH₵" + price;
+    item.appendChild(small);
+    priceDisplay.appendChild(item);
+  });
 });
-}
 
-function showPrice(){
-const n=document.getElementById("network").value;
-const b=document.getElementById("bundle").value;
-document.getElementById("price").textContent=
-n&&b?"Price: GH₵"+prices[n][b]:"";
-}
+document.getElementById("orderForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-async function submitOrder(){
-const network=document.getElementById("network").value;
-const bundle=document.getElementById("bundle").value;
-const phone=document.getElementById("phone").value.trim();
-const transaction=document.getElementById("transaction").value.trim();
-const message=document.getElementById("message");
+  const errorBox = document.getElementById("orderError");
+  const successBox = document.getElementById("orderSuccess");
+  errorBox.textContent = "";
+  successBox.classList.add("hidden");
 
-if(!network||!bundle||!phone||!transaction){
-message.textContent="Please complete all fields.";
-return;
-}
-if(!/^[0-9+\s-]{9,15}$/.test(phone)){
-message.textContent="Please enter a valid phone number.";
-return;
-}
-message.textContent="Submitting your order...";
-try{
-const response=await fetch("/.netlify/functions/submit-order",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-network,bundle,phone,transaction,
-price:prices[network][bundle]
-})
+  if (!bundleSelect.value) {
+    errorBox.textContent = "Please select a data bundle.";
+    return;
+  }
+
+  const [bundle,price] = bundleSelect.value.split("|");
+  const payload = {
+    type:"data_order",
+    network:networkSelect.value,
+    bundle,
+    price,
+    phone:document.getElementById("phone").value.trim(),
+    transaction:document.getElementById("transaction").value.trim()
+  };
+
+  const submitButton = event.target.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  submitButton.textContent = "SUBMITTING...";
+
+  try {
+    const response = await fetch("/.netlify/functions/submit-order", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || "Order could not be submitted.");
+    }
+
+    successBox.classList.remove("hidden");
+    event.target.reset();
+    bundleSelect.innerHTML = '<option value="">Choose a network first</option>';
+    priceDisplay.innerHTML = "";
+    successBox.scrollIntoView({behavior:"smooth"});
+  } catch (error) {
+    errorBox.textContent = error.message + " Please try again or contact our support team.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "SUBMIT DATA ORDER";
+  }
 });
-if(!response.ok)throw new Error("Submission failed");
-showSection("success");
-}catch(error){
-message.textContent="Order could not be submitted. Please try again later.";
-}
-}
+
+document.getElementById("vendorForm").addEventListener("submit", (event) => {
+  event.preventDefault();
+  alert("The vendor application form is ready. We still need to connect it securely to your Telegram notification system before applications can be submitted. Please wait for the next setup step.");
+});
 </script>
 </body>
 </html>
